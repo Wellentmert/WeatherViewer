@@ -14,5 +14,7 @@ class CityWeatherInfo {
     var condition: String? = nil // Condition explanation
     var imageUrl: String? = nil // Url for condition image on server
     var humidity: Int? = nil // Humidity
+    var windDegree: Int? = nil // Wind direction (0-360)
+    var windSpeed: Float? = nil // Wind speed in kph
     
 }

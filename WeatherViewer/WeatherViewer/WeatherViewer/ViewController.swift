@@ -17,6 +17,9 @@ class ViewController: UIViewController
     @IBOutlet weak var lblTemp: UILabel!
     @IBOutlet weak var imgViewPict: UIImageView!
     @IBOutlet weak var lblHumidity: UILabel!
+    @IBOutlet weak var windArrow: UIImageView!
+    @IBOutlet weak var lblWindSpeed: UILabel!
+    @IBOutlet weak var lblWind: UILabel!
     
     let weatherApiRequest: String = "http://api.apixu.com/v1/current.json?key=3d36a07892be4ee0bac202200191703&q="
     let locationManager = CLLocationManager()
@@ -24,6 +27,7 @@ class ViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+
         
         // Set search bar delegate
         searchBar.delegate = self
@@ -72,6 +76,8 @@ class ViewController: UIViewController
                             cityWeatherInfo.imageUrl = "http:\(icon)"
                         }
                         cityWeatherInfo.humidity = current["humidity"] as? Int
+                        cityWeatherInfo.windDegree = current["wind_degree"] as? Int
+                        cityWeatherInfo.windSpeed = current["wind_kph"] as? Float
                         
                     }
                     
@@ -110,6 +116,12 @@ class ViewController: UIViewController
             self.imgViewPict.downloadImage(from: object.imageUrl!)
             self.lblHumidity.text = ("Humidity: ") + (object.humidity?.description)!
 
+            UIView.animate(withDuration: 2.0, animations: {
+                self.windArrow.transform = CGAffineTransform(rotationAngle: CGFloat(object.windDegree!))
+            })
+            
+            self.lblWindSpeed.text = (object.windSpeed?.description)! + " kph"
+
         } else {
             
             showInterface(value: false)
@@ -124,11 +136,17 @@ class ViewController: UIViewController
             self.lblCondition.isHidden = false
             self.imgViewPict.isHidden = false
             self.lblHumidity.isHidden = false
+            self.windArrow.isHidden = false
+            self.lblWindSpeed.isHidden = false
+            self.lblWind.isHidden = false
         } else {
             self.lblTemp.isHidden = true
             self.lblCondition.isHidden = true
             self.imgViewPict.isHidden = true
             self.lblHumidity.isHidden = true
+            self.windArrow.isHidden = true
+            self.lblWindSpeed.isHidden = true
+            self.lblWind.isHidden = true
         }
     }
     
@@ -163,6 +181,7 @@ extension ViewController : CLLocationManagerDelegate {
 
 // MARK: - UIImageView
 extension UIImageView {
+    
     func downloadImage(from url:String) {
         let urlRequest = URLRequest(url: URL(string: url)!)
         
@@ -175,6 +194,32 @@ extension UIImageView {
         }
         
         task.resume()
+    }
+}
+
+// MARK: - UIImage
+extension UIImage {
+    
+    func rotate(radians: CGFloat) -> UIImage {
+        let rotatedSize = CGRect(origin: .zero, size: size)
+            .applying(CGAffineTransform(rotationAngle: CGFloat(radians)))
+            .integral.size
+        UIGraphicsBeginImageContext(rotatedSize)
+        
+        if let context = UIGraphicsGetCurrentContext() {
+            let origin = CGPoint(x: rotatedSize.width / 2.0,
+                                 y: rotatedSize.height / 2.0)
+            context.translateBy(x: origin.x, y: origin.y)
+            context.rotate(by: radians)
+            draw(in: CGRect(x: -origin.x, y: -origin.y,
+                            width: size.width, height: size.height))
+            let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            return rotatedImage ?? self
+        }
+        
+        return self
     }
 }
 

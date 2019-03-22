@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CBE69A219B3C54F34CC49996D11F4835A6800289",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "CBE69A219B3C54F34CC49996D11F4835A6800289" : 9223372036854775807,
+    "C7BF7D610B8919BE8F20E692A3D7E03E7F244591" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E38A7B15-44ED-4219-8E3E-80999A135EE5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "CBE69A219B3C54F34CC49996D11F4835A6800289" : "WeatherViewer\/",
+    "C7BF7D610B8919BE8F20E692A3D7E03E7F244591" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "WeatherViewer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "WeatherViewer\/WeatherViewer.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Wellentmert\/WeatherViewer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C7BF7D610B8919BE8F20E692A3D7E03E7F244591"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Wellentmert\/WeatherViewer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CBE69A219B3C54F34CC49996D11F4835A6800289"
+    }
+  ]
+}
