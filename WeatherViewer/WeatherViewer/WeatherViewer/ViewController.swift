@@ -27,9 +27,6 @@ class ViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        
-        // Set search bar delegate
         searchBar.delegate = self
         
         // Set locaton manager
@@ -52,6 +49,7 @@ class ViewController: UIViewController
     func requestCurrentWeather(_ searchString : String)
     {
         let cityWeatherInfo: CityWeatherInfo = CityWeatherInfo() // Object of CityWeatherInfo
+        
         var searchValue = searchString;
         searchValue = removeSpecialCharsFromString(text: searchValue) // Remove all restricted symbols
         searchValue = searchValue.replacingOccurrences(of: " ", with: "%20") // Replace space " " with %20
@@ -78,7 +76,6 @@ class ViewController: UIViewController
                         cityWeatherInfo.humidity = current["humidity"] as? Int
                         cityWeatherInfo.windDegree = current["wind_degree"] as? Int
                         cityWeatherInfo.windSpeed = current["wind_kph"] as? Float
-                        
                     }
                     
                     if let location = json["location"] as? [String : AnyObject] {
@@ -108,7 +105,6 @@ class ViewController: UIViewController
     func showCityWeatherData(object: CityWeatherInfo)
     {
         if object.valid {
-            
             showInterface(value: true)
             self.lblTemp.text = (object.degreeCelsium?.description)! + "℃"
             self.lblCityName.text = object.city
@@ -123,7 +119,6 @@ class ViewController: UIViewController
             self.lblWindSpeed.text = (object.windSpeed?.description)! + " kph"
 
         } else {
-            
             showInterface(value: false)
             self.lblCityName.text = "No data"
         }
@@ -131,7 +126,7 @@ class ViewController: UIViewController
     
     func showInterface(value: Bool)
     {
-        if value{
+        if value {
             self.lblTemp.isHidden = false
             self.lblCondition.isHidden = false
             self.imgViewPict.isHidden = false
@@ -159,8 +154,8 @@ class ViewController: UIViewController
 }
 
 // MARK: - UISearchBarDelegate
-extension ViewController : UISearchBarDelegate {
-    
+extension ViewController : UISearchBarDelegate
+{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     {
         requestCurrentWeather(searchBar.text!)
@@ -168,8 +163,8 @@ extension ViewController : UISearchBarDelegate {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension ViewController : CLLocationManagerDelegate {
-
+extension ViewController : CLLocationManagerDelegate
+{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
@@ -180,8 +175,8 @@ extension ViewController : CLLocationManagerDelegate {
 }
 
 // MARK: - UIImageView
-extension UIImageView {
-    
+extension UIImageView
+{
     func downloadImage(from url:String) {
         let urlRequest = URLRequest(url: URL(string: url)!)
         
@@ -192,34 +187,7 @@ extension UIImageView {
                 }
             }
         }
-        
         task.resume()
-    }
-}
-
-// MARK: - UIImage
-extension UIImage {
-    
-    func rotate(radians: CGFloat) -> UIImage {
-        let rotatedSize = CGRect(origin: .zero, size: size)
-            .applying(CGAffineTransform(rotationAngle: CGFloat(radians)))
-            .integral.size
-        UIGraphicsBeginImageContext(rotatedSize)
-        
-        if let context = UIGraphicsGetCurrentContext() {
-            let origin = CGPoint(x: rotatedSize.width / 2.0,
-                                 y: rotatedSize.height / 2.0)
-            context.translateBy(x: origin.x, y: origin.y)
-            context.rotate(by: radians)
-            draw(in: CGRect(x: -origin.x, y: -origin.y,
-                            width: size.width, height: size.height))
-            let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-            return rotatedImage ?? self
-        }
-        
-        return self
     }
 }
 
